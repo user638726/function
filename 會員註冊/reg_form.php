@@ -95,7 +95,7 @@
     </form>
     <?php
     include("../function.php");
-    starts(17);
+    starts('正三角形',21);
     ?>
     </body>
 </html>
