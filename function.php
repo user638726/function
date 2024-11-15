@@ -44,27 +44,61 @@
   break;
     }
     }
-    
-    function all($table){
-      $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+    $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+    $pdo= new PDO($dsn,'root','');
+    /**
+     * 建立資料庫的連線變數
+     * @parem
+     * @return object
+      */
+    function pdo($db){
+      $dsn="mysql:host=localhost;charset=utf8;dbname=$db";
       $pdo=new PDO($dsn,'root','');
-      
-      $rows=$pdo->query("select * from $table")->fetchAll(PDO::FETCH_ASSOC);
-      return $rows;
-    }
-    /***
+      return $pdo;
+      }
+     /***
      * 回傳指定資料表的所有資料
      * @parem string $table 資料表名稱
      * @return array
      * 
      */
+    function all($table){
+      global $pdo;
+      
+      $rows=$pdo->query("select * from $table")->fetchAll(PDO::FETCH_ASSOC);
+      return $rows;
+    }
+   /***
+    * 
+
+    回傳指定資料表的特定ID的單筆資料
+    @parem string $table 資料表名稱
+    @parem interger $id || array $id 資料表ID
+    @return array
+    */
     function find($table,$id){
-     $dsn="mysql:host=localhost;charset=utf8;dname=crud";
-     $pdo=new PDO($dsn,'root','');
+     global $pdo;
+     if(is_array($id)){
+      $tmp=[];
+      foreach($id as $key => $value){
+        $tmp[]=sprintf("'%s'='%s'",$key,$value);
+      }
+      $sql ="select * from $table where ".join("&&",$tmp);
+     }else{
      $sql="select * from $table where id='$id'";
+     }
      $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
      RETURN $row;
     }
-    
+    /**
+     * 
+     * 
+     * 列出陣列內容
+     */
+    function dd($array){
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+    }
     
     ?>

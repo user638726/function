@@ -10,7 +10,9 @@
 
 <?php
 include"../function.php";
-$rows=all("member");
+$d1=find('member',1);
+dd($d1);
+$rows=all('member');
 /*$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
 $pdo=new PDO($dsn,'root','');
 
