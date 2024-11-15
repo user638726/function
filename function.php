@@ -43,8 +43,7 @@ switch($shape){
     break;  
 }
 }
-$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
-$pdo=new PDO($dsn,'root','');
+
 /**
  * 建立資料庫的連線變數
  * @param string $db 資料庫名稱
@@ -63,9 +62,7 @@ function pdo($db){
  * @return array
  */
 function all($table){
-    /* $pdo=pdo('crud'); */
-    global $pdo;
-
+    $pdo=pdo('crud');
     $sql="select * from $table";
     $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     return $rows;
@@ -78,34 +75,9 @@ function all($table){
  * @return array
  */
 function find($table,$id){
-    
-    global $pdo;
-
-    if(is_array($id)){
-        $tmp=[];
-        foreach($id as $key => $value){
-            //sprintf("`%s`='%s'",$key,$value);
-            $tmp[]="`$key`='$value'";
-        }
-        $sql="select * from $table where ".join(" && ",$tmp);
-        
-    }else{
-        $sql="select * from $table where id='$id'";
-    }
-    $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-
-    return $row;
-}
-/**
- * 刪除指定條件的資料
- * @param string $table 資料表名稱
- * @param array $id 條件(數字或陣列)
- * @return boolean
- */
-
- function del($table ,$id){
+    $sql="select * from $table where ";
     $pdo=$pdo=pdo('crud');
-    $sql="select * from $table where";
+
     if(is_array($id)){
         $tmp=[];
         foreach($id as $key => $value){
@@ -113,22 +85,52 @@ function find($table,$id){
             $tmp[]="`$key`='$value'";
         }
         $sql=$sql.join(" && ",$tmp);
-
+        
     }else{
-        $sql=$sql."id='$id'";
+        $sql=$sql . " `id`='$id'";
+    }
+    $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    
+    return $row;
+}
+
+
+/**
+ * 刪除指定條件的資料
+ * @param string $table 資料表名稱
+ * @param array $id 條件(數字或陣列)
+ * @return boolean
+ */
+
+function del($table ,$id){
+    $sql="delete from $table where ";
+    $pdo=$pdo=pdo('crud');
+
+    if(is_array($id)){
+        $tmp=[];
+        foreach($id as $key => $value){
+            //sprintf("`%s`='%s'",$key,$value);
+            $tmp[]="`$key`='$value'";
+        }
+        $sql=$sql.join(" && ",$tmp);
+        
+    }else{
+        $sql=$sql . " id='$id'";
     }
 
      return  $pdo->exec($sql);
- }
- /**
-  *更新指定條件的資料
-  *@param string $table 資料表名稱 
-  *@param array $array更新的欄位及內容
-  *@param array || number $id條件(數字或陣列)
-  *@return boolean
-  *  
-  */
-  function update($table,$array,$id){
+    
+}
+
+/**
+ * 更新指定條件的資料
+ * @param string $table 資料表名稱
+ * @param array $array 更新的欄位及內容
+ * @param array || number $id 條件(數字或陣列)
+ * @return boolean
+ */
+
+function update($table,$array,$id){
     $sql="update $table set ";
     $pdo=$pdo=pdo('crud');
     $tmp=[];
@@ -152,6 +154,24 @@ function find($table,$id){
 
 
 }
+
+/**
+ * 新增資料
+ * @param string $table 資料表名稱
+ * @param string $cols  新增的欄位字串
+ * @param string $values 新增的值字串
+ * @return boolean
+ */
+
+function insert($table,$array){
+    $pdo=pdo('crud');
+    $sql="insert into $table ";
+    $keys=array_keys($array);
+    
+    $sql=$sql . "(`".join("`,`",$keys)."`) values ('".join("','",$array)."')";
+    return $pdo->exec($sql);
+}
+
 /**
  * 列出陣列內容
  */
@@ -161,6 +181,8 @@ function dd($array){
     echo "</pre>";
 }
 
-update('member',['acc'=>'7879'],['id'=>'10']);
+insert("member",["acc"=>21,"pw"=>21,"email"=>"21@gmail.com","tel"=>"0933254879"]);
+//
+//update('member',['email'=>'19@gmail.com'],['acc'=>'19','pw'=>'19']);
 
 ?>
