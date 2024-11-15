@@ -1,5 +1,4 @@
 <?php 
-
 include "../function.php";
 
 
@@ -7,6 +6,7 @@ if(!isset($_POST['acc'])){
     header("location:login2.php");
     exit();
 }
+
 $acc=$_POST['acc'];
 $pw=$_POST['pw'];
 
@@ -30,4 +30,6 @@ if(!empty($row)){
     header("location:login2.php?err=1");
 
 }
+
+
 ?>

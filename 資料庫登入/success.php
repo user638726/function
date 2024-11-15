@@ -9,15 +9,11 @@
     <h1>登入成功</h1>
 
 <?php
-include"../function.php";
+include "../function.php";
 $d1=find('member',1);
 dd($d1);
 $rows=all('member');
-/*$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
-$pdo=new PDO($dsn,'root','');
 
-$rows=$pdo->query("select * from member")->fetchAll(PDO::FETCH_ASSOC);
-*/
 ?>
 
 <table>
@@ -41,7 +37,7 @@ foreach($rows as  $row){
         <td><?=$row['tel'];?></td>
         <td>
             <a href="edit_form.php?id=<?=$row['id'];?>">編輯</a>
-            <a href="delete.php?id=<?=$row['id'];?>">刪除</a>
+            <a href="del.php?id=<?=$row['id'];?>">刪除</a>
         </td>
     </tr>
     <?php
