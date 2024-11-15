@@ -44,4 +44,11 @@
   break;
     }
     }
+    function all($table){
+      $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+      $pdo=new PDO($dsn,'root','');
+      
+      $rows=$pdo->query("select * from $table")->fetchAll(PDO::FETCH_ASSOC);
+      return $rows;
+    }
     ?>
