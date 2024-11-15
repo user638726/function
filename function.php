@@ -161,4 +161,6 @@ function dd($array){
     echo "</pre>";
 }
 
+update('member',['acc'=>'7879'],['id'=>'10']);
+
 ?>
