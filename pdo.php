@@ -37,9 +37,9 @@ foreach($rows as $row) {
 echo "</table>";  // Close the table tag after the loop
 
 
-    /*echo"<pre>";
+    echo"<pre>";
     print_r($rows);
-    echo "</pre>"*/
+    echo "</pre>"
     ?>
 </body>
 </html>
