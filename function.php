@@ -181,7 +181,7 @@ function dd($array){
     echo "</pre>";
 }
 
-insert("member",["acc"=>21,"pw"=>21,"email"=>"21@gmail.com","tel"=>"0933254879"]);
+//insert("member",["acc"=>21,"pw"=>21,"email"=>"21@gmail.com","tel"=>"0933254879"]);
 //
 //update('member',['email'=>'19@gmail.com'],['acc'=>'19','pw'=>'19']);
 
