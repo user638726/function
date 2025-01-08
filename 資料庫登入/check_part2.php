@@ -25,7 +25,7 @@ if(!empty($row)){
     
     //$_SESSION['login']=$acc;
     //echo "<br><a href='login2.php'>回首頁</a>";
-    header("location:success.php");
+    header("location:flex.php");
 }else{
     header("location:login2.php?err=1");
 
