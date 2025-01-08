@@ -15,7 +15,7 @@ $pw=$_POST['pw'];
 //$sql="select count(id) from `member` where `acc`='$acc' && `pw`='$pw'";
 //echo $sql;
 $row=find('member',['acc'=>$acc,'pw'=>$pw]);
-dd($row);
+//dd($row);
 //echo "<pre>";
 //print_r($row);
 //echo "</pre>";
